@@ -162,7 +162,3 @@ class PDFViewer:
         self.select_button.pack()
         self.window.mainloop()
 
-
-if __name__ == "__main__":
-    pdf_viewer = PDFViewer()
-    pdf_viewer.run()

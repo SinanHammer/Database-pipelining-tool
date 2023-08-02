@@ -1,3 +1,8 @@
+import tkinter as tk
+from tkinter import messagebox
+from 数据处理.treat_data_ui import DataProcessorGUI
+from Image_pro.fig import MeasurementTool as M
+# from paser.p_paser import PDFViewer
 from tkinter import filedialog
 import threading
 import fitz
@@ -5,6 +10,23 @@ import tkinter as tk
 from pdf2image import convert_from_path
 from tkinter import ttk
 from PIL import Image, ImageTk
+import io
+import os
+
+
+import tkinter as tk
+from tkinter import filedialog, messagebox
+from PIL import Image, ImageTk
+import fitz
+import io
+import os
+import threading
+
+
+import tkinter as tk
+from tkinter import filedialog
+from PIL import Image, ImageTk
+import fitz
 import io
 import os
 
@@ -51,13 +73,14 @@ class PDFViewer:
         self.extracted_text = ""
         self.extracted_images = []
         self.image_references = []
+        self.photo_references = []  # 存储PhotoImage对象的引用
         self.save_location = ""
         self.image_path = ""
 
     def select_pdf_file(self):
         self.file_path = filedialog.askopenfilename(filetypes=[("PDF Files", "*.pdf")])
         print("选择的文件地址是：", self.file_path)
-        self.output_text.insert(tk.END, str("选择的文件地址是："+self.file_path))
+        self.output_text.insert(tk.END, str("选择的文件地址是：" + self.file_path))
         if self.file_path:
             extraction_thread = threading.Thread(target=self.extract_and_display)
             extraction_thread.start()
@@ -95,6 +118,7 @@ class PDFViewer:
 
         self.canvas.delete("all")
         self.image_references = []
+        self.photo_references = []  # 清空PhotoImage对象的引用列表
 
         y = 0
         button_offset = 20  # 按钮的垂直偏移量
@@ -109,6 +133,8 @@ class PDFViewer:
 
             photo = ImageTk.PhotoImage(image)
             self.image_references.append(photo)
+            self.photo_references.append(photo)  # 存储PhotoImage对象的引用
+
             self.canvas.create_image(max_width // 2, y + height // 2, image=photo, anchor=tk.CENTER)
 
             # 创建图片选择按钮
@@ -126,16 +152,16 @@ class PDFViewer:
 
     def select_image(self, index):
         # 处理图片选择
-        if index < len(self.image_references):
+        if index < len(self.photo_references):
             selected_image = self.extracted_images[index]
             save_path = os.path.join(self.save_location, f"image_{index + 1}.jpg")
             self.image_path = save_path
             selected_image.save(save_path)
             self.output_text.delete('1.0', tk.END)
-            self.output_text.insert(tk.END, "图片保存路径: " + save_path+"\n")
+            self.output_text.insert(tk.END, "图片保存路径: " + save_path + "\n")
         else:
             print("无效的图片索引")
-            self.output_text.insert(tk.END,"无效的图片索引\n")
+            self.output_text.insert(tk.END, "无效的图片索引\n")
 
     def generate_text_file(self):
         text = self.Text.get("1.0", tk.END).strip()  # 获取文本框中的内容
@@ -163,6 +189,46 @@ class PDFViewer:
         self.window.mainloop()
 
 
+class Application(PDFViewer):
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("恐龙数据库处理工具")
+        self.create_menu_buttons()
+
+    def create_menu_buttons(self):
+        menu_frame = tk.Frame(self.root)
+        menu_frame.pack()
+
+        menus = ["数据处理", "图像处理", "属性查询"]
+        for menu in menus:
+            menu_button = tk.Button(menu_frame, text=menu, command=lambda m=menu: self.menu_click(m))
+            menu_button.pack(side="left", padx=10, pady=10)
+
+    def menu_click(self, menu):
+        if menu == "数据处理":
+            self.data_processing_window()
+        elif menu == "图像处理":
+            self.image_processing_window()
+        elif menu == "属性查询":
+            self.attribute_query_window()
+
+    def data_processing_window(self):
+        data_processor_gui = DataProcessorGUI()
+        data_processor_gui.run()
+
+    def image_processing_window(self):
+        image_processing_gui = M()
+        image_processing_gui.run()
+
+    def attribute_query_window(self):
+        pdf_viewer = PDFViewer()
+        pdf_viewer.run()
+
+    def run(self):
+        self.root.mainloop()
+
+
+
 if __name__ == "__main__":
-    pdf_viewer = PDFViewer()
-    pdf_viewer.run()
+    app = Application()
+    app.run()
