@@ -162,3 +162,5 @@ class PDFViewer:
         self.select_button.pack()
         self.window.mainloop()
 
+a = PDFViewer()
+a.run()
