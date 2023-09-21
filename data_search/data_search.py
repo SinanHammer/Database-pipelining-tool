@@ -26,7 +26,7 @@ class TextSearchGUI(object):
         self.result_label.pack()
 
         self.result_checkbuttons = []
-        self.search_words = ['early', '今天', '一个', '恐龙']
+        self.search_words = ['early', 'Earth Sciences', 'Thyreophoran', 'Middle Jurassic']
 
         self.highlight_start = '1.0'
         self.highlight_end = '1.0'

@@ -9,7 +9,7 @@ pdf = PdfReader(pdf_file)
 # 获取PDF文档的元数据信息
 metadata = pdf.metadata
 
-# 输出文档信息，注意使用 modification_date 而不是 mod_date
+# 输出文档信息
 print("Author:", metadata.author)
 print("Creator:", metadata.creator)
 print("Producer:", metadata.producer)
