@@ -1,0 +1,431 @@
+1. Introduction
+Machine learning (ML) has a long history in statistical signal processing and roots some of its earliest applica -
+tions in time series filtering (Kolmogorov,  1939 ) and geostatistics (Krige,  1951 ). Despite significant discoveries 
+of important methods such as Bayesian inference in the 1960s, some re-discoveries of the methods of backprop -
+agation in the 1980s, and the invention of data-driven techniques such as support vector machines and recurrent 
+neural networks in the 1990s, ML research and application have experienced multiple cycles of optimism and 
+pessimism. The most recent wave of optimism started in the early 2000s when both the amount of openly avail -
+able data and computing power grew exponentially. Driven by the “big-data” movement, ML methods such as 
+support vector clustering and random forests have become widely accepted. Since the 2010, deep learning, based 
+on large artificial neural networks, specifically convolutional neural networks (CNNs), has become the most 
+advanced, yet practical ML system that enabled spectacular success in supervised tasks such as image classifica -
+tion and speech recognition. In 2016 and 2017, Google's AlphaGo and AlphaGo Zero snatched consistent wins 
+from professional human players in the notoriously difficult game of Go, marking one of the highest achieve -
+ments of reinforcement learning.
+Following each cycle of ML research, the number of ML applications in geosciences has gone through similar 
+peaks and troughs, albeit with a time lag of a few years (Dramsch,  2020 ). While the new era of ML equips geosci -
+entists with high-performance computing and open-source software libraries, we face unique challenges specific 
+to the domain of solid Earth geoscience. The first challenge arises from the lack of sufficient data and corre -
+sponding labels. Unlike many commercial applications, geoscience data can rarely be crowd-sourced and labeled. 
+The uncertain nature of geoscience exacerbates this challenge with a lower opportunity to properly benchmark 
+the machines with ground truth. The second challenge is rooted in the general “black-box” characteristic of the Abstract  After decades of low but continuing activity, applications of machine learning (ML) in solid 
+Earth geoscience have exploded in popularity. This special collection provides a snapshot of those applications, 
+which range from data processing to inversion and interpretation, for which ML appears particularly well 
+suited. Inevitably, there are variations in the degree to which these methods have been developed. We hope 
+that the progress seen in some areas will inspire efforts in others. Challenges remain, including the formidable 
+task of how geoscience can keep pace with developments in ML while ensuring the scientific rigor that our 
+field depends on, but with improvements in sensor technology and accelerating rates of data accumulation, the 
+methods of ML seem poised to play an important role for the foreseeable future.
+Plain Language Summary  Machine learning has been the topic that attracts massive academic 
+attention in Solid-Earth Geosciences in the past decade. Applications of machine learning (ML), including 
+the more conventional signal processing-based methods and the trending deep neural network-based methods, 
+have dominated many scientific conversations. We introduce the special collection of ML applications in 
+Solid-Earth geosciences that range from earthquake signal processing, automatic image interpretation, to joint 
+understanding of multiple geoscience datasets. With the extraordinary efforts in ML studies, we now have a 
+better outline of the areas where ML has contributed most significantly through efficiency and automation, and 
+where ML has the potential to revolutionize the workflow and advance the integrated scientific understanding 
+of the Solid-Earth processes.
+LI ET AL.© 2023. American Geophysical Union. 
+All Rights Reserved.Machine Learning Developments and Applications in 
+Solid-Earth Geosciences: Fad or Future?
+Yunyue Elita Li1 , Daniel O’Malley2 , Greg Beroza3 , Andrew Curtis4 , and Paul Johnson5 
+1Sustainability Geophysics Project, Department of Earth, Atmospheric, and Planetary Sciences, Purdue University, West 
+Lafayette, IN, USA, 2Computational Earth Science Group, Los Alamos National Laboratory, Los Alamos, NM, USA, 
+3Stanford Doerr School of Sustainability, Stanford University, Stanford, CA, USA, 4Institute of Earth and Planetary Sciences, 
+The University of Edinburgh, Edinburgh, UK, 5EES Division, Los Alamos National Laboratory, Los Alamos, NM, USAKey Points:
+•  Applications of machine learning 
+(ML) in solid Earth geoscience have 
+exploded in the past few years
+•  This special collection provides a 
+snapshot of ML applications from 
+data processing to inversion and 
+interpretation
+•  Better integration of ML algorithms 
+and scientific rigor is expected to 
+further improve our understanding of 
+the Earth
+Correspondence to:
+Y. E. Li,
+elitali@purdue.edu
+Citation:
+Li, Y. E., O’Malley, D., Beroza, G., 
+Curtis, A., & Johnson, P. (2023). Machine 
+learning developments and applications 
+in Solid-Earth geosciences: Fad or future? 
+Journal of Geophysical Research: Solid 
+Earth , 128, e2022JB026310. https://doi.
+org/10.1029/2022JB026310
+Received 21 DEC 2022
+Accepted 23 DEC 2022
+Author Contributions:
+Writing – original draft: Yunyue Elita Li
+Writing – review & editing: Daniel 
+O’Malley, Greg Beroza, Andrew Curtis, 
+Paul Johnson10.1029/2022JB026310
+Special Section:
+Machine learning for Solid 
+Earth observation, modeling and 
+understandingINTRODUCTION
+1 of 7
+Journal of Geophysical Research: Solid Earth
+LI ET AL.10.1029/2022JB026310
+2 of 7machines. This decoupling between prediction and understanding undermines the confidence of the geoscientists 
+in the learned models, calling for integration between physics-based methods and data-driven methods.
+Co-led by four journals: Journal of Geophysical Research: Solid Earth , Geochemistry, Geophysics, Geosystems, 
+Earth and Space Sciences , and Tectonics , the special collection on “Machine Learning for Solid Earth Obser -
+vation, Modeling, and Understanding” gathers papers that demonstrate the new developments, unprecedented 
+capabilities, and novel applications of ML in solid Earth geosciences. In Section  2, we categorize the papers 
+according to their geoscience applications and summarize the highlights of these papers in addressing the general 
+ML challenges as well as the particular geoscience challenges. In Section  3, we outline the unsolved challenges 
+of ML in geosciences and speculate about the future directions the solid Earth community should venture upon 
+based on the cornerstones laid down by this special collection.
+2. Highlights
+2.1. Earthquake Data Applications
+The earthquake community is one of the earliest movers in geoscience to capitalize on the recent developments 
+in ML, partially due to the exponential increase in digital data volumes, partially due to the increasing number 
+of automatic earthquake identification algorithms (Yano & Kano,  2022 ), and more importantly due to the better 
+availability of data labels accumulated through the community earthquake catalogs. Studies presented in the 
+special collection bring more details of the seismic waveforms to the attention of the neural network and form the 
+basis for the next-generation earthquake detection algorithms that are able to fully mimic an experienced earth -
+quake data analyst (Beroza et al.,  2021 ).
+Earthquake phase detection has witnessed the most rapid advance as a successful application of ML. Cianetti 
+et al. ( 2021 ) and Münchmeyer et al. ( 2022 ) compare existing deep learning algorithms under different earthquake 
+scenarios, with special attention on their generalizability to data beyond the training set and giving end-users 
+practical suggestions when applying these models. The sheer improvement in detection efficiency and consist -
+ency has resulted in much more detailed maps of seismicity and a corresponding improved understanding of 
+earthquakes. In this special collection, multiple studies further improve the robustness and generalizability of 
+ML-based earthquake detection. The improvements are achieved by utilizing a vision transformer architecture 
+(Saad et al.,  2022 ), by designing cascaded neural networks (Majstorovic et al.,  2021 ), by data augmentation (T. 
+Wang et al.,  2021 ) and transfer learning (Lapins et al.,  2021 ), by transforming seismic data into the time-frequency 
+domain before detection (Saad et al.,  2021 ), and by incorporating higher abstraction features and latent space 
+information over the seismic array (Mosher & Audet,  2020 ; Z. Xiao et al.,  2021 ; Feng et al.,  2022 ). Baseline 
+neural networks are trained using massive labeled datasets with several tens of thousands of data entries, while 
+transfer learning reduces this requirement to a few thousand.
+Seismicity classification is a more challenging step in the earthquake monitoring workflow as fewer labeled data 
+are available, and more uncertainty exists in current manually labeled datasets. Therefore, earthquake seismol -
+ogists appeal to semi-supervised methods (Linville,  2022 ) and unsupervised ML methods, which do not require 
+manual labels and are often better generalized. Zhu, McBrearty, et al. ( 2022 ) proposes a new earthquake phase 
+association algorithm based on a Bayesian Gaussian Mixture model to aggregate picked seismic phases into indi -
+vidual seismic events. This process is essentially an unsupervised clustering process, based on the maximum like -
+lihood criterion to determine the earthquake source parameters. In a subsequent paper (Zhu, Tai, et al.,  2022 ), the 
+authors further develop an end-to-end architecture for joint phase picking and association. Jenkins II et al. ( 2021 ) 
+adapts a random forest classifier to separate the background seismicity and the aftershocks in existing earthquake 
+catalogs. Steinmann et  al.  ( 2022 ) proposes a hierarchical clustering strategy to classify noise and seismicity 
+based on the deep scattering spectrum of the seismic data. Aden-Antoniow et al. ( 2022 ) compresses the seismic 
+information into a low-dimensional latent space using an autoencoder before these latent vectors are clustered to 
+identify seismicity from different sources.
+While natural earthquake data carry a tremendous amount of information about the physical Earth, inverting for 
+such information is extremely challenging due to the multitude of complexities in the natural environment. In 
+the controlled laboratory setting, on the other hand, accurate labels of the physical system are generated at the 
+same time as the laboratory earthquakes. Fieseler et al. ( 2022 ) apply an unsupervised sparse regression model to 
+classify acoustic emission signals related to different cracking mechanisms and suggest using the differences in 
+ 21699356, 2023, 1, Downloaded from https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022JB026310 by Zhejiang University, Wiley Online Library on [30/07/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+Journal of Geophysical Research: Solid Earth
+LI ET AL.10.1029/2022JB026310
+3 of 7the reconstruction accuracy as an indicator for classification. By focusing the attention of the neural networks on 
+specific features, fracture loading mode (Z. Song et al.,  2022 ) and fracture saturation (Nolte & Pyrak-Nolte,  2022 ) 
+are successfully inferred from the laboratory earthquakes. Similarly, although the deterministic prediction of 
+time-to-failure in natural environments remains elusive, a couple of studies (Jasperson et al.,  2021 ; Shreedharan 
+et  al.,  2021 ) show that ML has the ability to predict time-to-failure and the stress state from the laboratory 
+earthquake data. J.-T. Lin et  al.  ( 2021 ) demonstrates that deep neural networks trained by simulated ground 
+deformation data have the potential to provide accurate early warnings for large earthquakes, particularly when 
+the regional tectonic setting is well understood and data are abundant. Nonetheless, the application of such meth -
+ods to tectonic faults in natural environments requires rigorous tests of the generalizability of the proposed ML 
+approaches.
+2.2. Geophysical Data Processing and Image Interpretation
+Geophysical data contain various types of images where ML algorithms have demonstrated remarkable success. 
+H. Xiao et al. ( 2021 ) perform a straightforward application of image classification to identify weather phenomena 
+from natural images and establish a database for future weather studies. Zhou et al. ( 2022 ) follow the conven -
+tional feature engineering and prediction workflow to extract outlying motions from satellite images and achieve 
+accurate identification of landslide location almost 1  year in advance. Granat et  al.  ( 2021 ) utilize clustering 
+methods on global navigation satellite system data to identify major faults in California. Graw et al. ( 2021 ) utilize 
+the random forest regressor to interpolate for a global marine sediment density map from measurements at a 
+few sparsely distributed locations. You et al. ( 2021 ) train a generative adversarial network to compress complex 
+two-dimensional digital rock images into one-dimensional latent space vectors and exploit the linearity of these 
+vectors to interpolate between the two-dimensional images for a complete three-dimensional rock structure. 
+These self-supervised ML methods bring unprecedented high-resolution images that are impossible or expensive 
+to obtain to the geophysical disciplines.
+ML has also drastically improved the efficiency of geophysical signal processing and interpretation. Alyaev and 
+Elsheikh ( 2022 ) use a mixture density deep neural network (NN) to perform fast geophysical log interpretation 
+for real-time geosteering. Automatic 2D image fault interpretations are performed on optical and topographic 
+images with different resolutions (Mattéo et  al.,  2021 ), and bathymetry images (Vega-Ramírez et  al.,  2021 ). 
+Gan et al. ( 2022 ) propose a generative NN to interpolate earthquake waveforms recorded on irregularly spaced 
+stations. B. Li and Li ( 2021 ) train a neural network to perform end-to-end interpretation from time-lapse seismic 
+images to the presence of CO2 after its geological sequestration. To train the ML algorithms, sufficient manual 
+interpretations are used. Compared to the size of the natural image training data sets, the size of the geophysi -
+cal  image training data sets is often orders of magnitude smaller. Consequently, the structure and complexity of 
+the machines, particularly of the neural networks, optimize at a moderate level to avoid overfitting.
+When manually labeled ground truth for geophysical images is not available, synthetic images and corresponding 
+labeled solutions are used for large-scale three-dimensional seismic image interpretation (Bi et al.,  2021 ; X. Wu 
+et al.,  2020 ), for microseismicity locationing (Q. Zhang et al.,  2022 ), for interferometric synthetic aperture radar 
+image processing and denoising (Sun et al.,  2020 ), and for dispersion curve picking (W. Song et al.,  2021 , 2022 ). 
+These studies demonstrate the encouraging generalizability of supervised neural networks from synthetic data 
+to field data, especially when the synthetic data are crafted based on the preliminary knowledge of the field. 
+Constructing and augmenting training data using the known physics is also one of the most straightforward 
+methods to incorporate physics information into the “black box” of the neural network, making the machines not 
+entirely dependent on insufficient, noisy data.
+2.3. Geophysical Inversion
+This special collection has received the most submissions in the category of geophysical inversion, convention -
+ally a highly challenging, ill-posed, and computationally expensive task. Most studies in this category design 
+deep neural networks that are capable to capture the complex transformation from the measured data space to the 
+desired model parameter space, train these machines using paired models and their corresponding synthetic data, 
+and apply the trained machines to field datasets. Applications of such a framework range across the whole spectrum 
+of geophysical inverse problems, including surface wave dispersion inversion and tomography (Cai et al.,  2022 ; 
+ 21699356, 2023, 1, Downloaded from https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022JB026310 by Zhejiang University, Wiley Online Library on [30/07/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+Journal of Geophysical Research: Solid Earth
+LI ET AL.10.1029/2022JB026310
+4 of 7X. Zhang & Curtis,  2021 ), seismic-to-petrophysics inversion (Xiong et al.,  2021 ; C. Zou et al.,  2021 ), crustal 
+thickness and Vp/Vs estimation from receiver functions (F. Wang et al.,  2022 ), earthquake and microseismicity 
+moment tensor inversion (Chen et al.,  2022 ; Steinberg et al.,  2021 ), magnetic, gravity, and ground-penetrating 
+radar (GPR) data inversion (R. Huang et al.,  2021 ; Leong & Zhu,  2021 ; Nurindrawati & Sun,  2020 ), and thermal 
+evolution estimation for Mars (Agarwal et al.,  2021 ). Y. Wu et al. ( 2022 ) design a dual loop framework for full 
+waveform inversion using reflection data, where the inner loop trains a CNN to update the velocity model from 
+the image, and the outer loop updates the training data set based on the results from the inner loop.
+It is easy to see the appeal of ML in this challenge. First, it takes advantage of the massive expressivity of 
+deep neural networks to represent complex domain transforms. Second, it incorporates the best-known physics 
+through the training data sets constructed by accurate simulations and approximated noise. Moreover, once the 
+neural networks are properly trained, applications on field data are almost instantaneous. Last but not least, 
+the efficiency and the crafted stochastic characteristics of the ML framework help quantify the uncertainties in 
+the  inverted models. Nevertheless, such end-to-end ML solutions to geophysical inversion problems still suffer 
+from strong skepticism due to the lack of interpretability of the inversion process, the severely limited general -
+izability of the trained machines to different field datasets, and the high computational cost in constructing the 
+training datasets.
+A few studies take more cautious steps compared to these end-to-end solutions by integrating ML as part of 
+the inversion workflow. Kaur et al. ( 2021 ), X. Huang and Alkhalifah ( 2021 ), and Rasht-Behesht et al. ( 2022 ) 
+improve the efficiency of seismic inversion by accelerating the wave-equation simulation process. Chen and 
+Saygin ( 2021 ) propose to utilize latent-space representation of the seismic data compressed by the convolutional 
+autoencoder. Lopez-Alvis et al. ( 2022 ) assemble the geological priors using a variational autoencoder to facilitate 
+GPR traveltime inversion. While these studies show promising results, significant technological and scientific 
+improvements are still in need before ML solutions make groundbreaking contributions to the extremely chal -
+lenging geophysical inverse problems.
+2.4. Multiphysical and Multi-Disciplinary Information Integration
+One of the most exciting aspects of ML methods stems from their capability to capture implicit, complex rela -
+tions among data from different physical, chemical, and geological measurements and information from different 
+disciplines. Due to the complexity and diversity of geochemistry data, ML-based classification methods are 
+proven to be much more efficient and accurate than conventional methods (Qin et al.,  2022 ; S. Zou et al.,  2022 ), 
+particularly for large-scale geological processes. However, joint inversion, interpretation, and/or assimilation 
+of data and knowledge from multiple disciplines rank among the most challenging tasks in geoscience. These 
+are the problems that do not have existing accepted solutions, rely heavily on judgments of highly experienced 
+experts, yet could lead to the most profound scientific insights if investigated properly. A few studies explore the 
+promise of ML in multi-disciplinary data integration for predicting drought behavior in the Colorado River Basin 
+based on various Earth System Models (Talsma et al.,  2022 ), for predicting sea surface variabilities in the South 
+China Sea (Shao et al.,  2021 ), for geothermal heat flow prediction from multiple geophysical and geological data -
+sets (Lösing & Ebbing,  2021 ), for identifying volcano's transition from non-eruptive to eruptive states (Manley 
+et al.,  2021 ), for understanding the geodynamic history using geochemical data (Jorgenson et al.,  2022 ; X. Lin 
+et al.,  2022 ; X. Li & Zhang,  2022 ; Saha et al.,  2021 ; Thomson et al.,  2021 ; Y. Wang et al.,  2021 ), and for charac -
+terizing geodetic signals by their sources (Hu et al.,  2021 ). Albert ( 2022 ) uses an unsupervised deep NN structure 
+to predict future atmospheric structures from past measurements to enable infrasound propagation modeling. 
+These studies, although limited by the availability of data, provide encouraging results that demonstrate the feasi -
+bility of formalizing the interdisciplinary knowledge integration process through ML.
+3. Remaining Challenges and Roads Ahead
+This special collection showcases a wide variety of ML applications in solid Earth geosciences that have 
+dramatically improved the efficiency of data processing and interpretation, and in some cases have resulted 
+in a better understanding of the underlying physics and geoscience processes. The fundamental challenges of 
+ML in geosciences: lack of labeled data, low interpretability of the deep learning networks, as well as limited 
+integration between physical understanding and data correlations, remain to be overcome by the concerted efforts 
+from generations of geoscientists.
+ 21699356, 2023, 1, Downloaded from https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022JB026310 by Zhejiang University, Wiley Online Library on [30/07/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+Journal of Geophysical Research: Solid Earth
+LI ET AL.10.1029/2022JB026310
+5 of 7Some of these challenges, particularly the lack of labeled data, may be addressed by recent trends in ML toward 
+foundation models (Bommasani et al.,  2021 ), which are trained on broad data and can be adapted to solve many 
+problems using small problem-specific datasets. While foundation models have had great success in applications 
+such as natural language processing, how or if they could be applied in geosciences remains to be seen. Such gaps 
+between computer science, data science, and geoscience call for greater and deeper interdisciplinary collabora -
+tions so that rapid innovations in ML can be capitalized on by the geoscience community to continue pushing the 
+boundaries of scientific understanding of our natural world. We anticipate opportunities for new and interesting 
+applications of ML in geosciences to continue progressing. With increasing exploration, comparison, and compe -
+tition, we as a community will identify the most suitable algorithms for different geoscience goals, and achieve 
+better clarity of areas where ML has truly impacted solid Earth geoscience.
+Data Availability Statement
+Data were not used, nor created for this research.
+References
+Aden-Antoniow, F., Frank, W. B., & Seydoux, L. (2022). An adaptable random forest model for the declustering of earthquake catalogs. Journal 
+of Geophysical Research: Solid Earth , 127(2), e2021JB023254. https://doi.org/10.1029/2021JB023254
+Agarwal, S., Tosi, N., Kessel, P., Padovan, S., Breuer, D., & Montavon, G. (2021). Toward constraining Mars’ thermal evolution using machine 
+learning. Earth and Space Science , 8(4), e2020EA001484. https://doi.org/10.1029/2020EA001484
+Albert, S. (2022). Atmospheric structure prediction for infrasound propagation modeling using deep learning. Earth and Space Science , 9(8), 
+e2022EA002233. https://doi.org/10.1029/2022ea002233
+Alyaev, S., & Elsheikh, A. H. (2022). Direct multi-modal inversion of geophysical logs using deep learning. Earth and Space Science , 9(9), 
+e2021EA002186. https://doi.org/10.1029/2021ea002186
+Beroza, G. C., Segou, M., & Mostafa Mousavi, S. (2021). Machine learning and earthquake forecasting—Next steps. Nature Communications , 
+12(1), 4761. https://doi.org/10.1038/s41467-021-24952-6
+Bi, Z., Wu, X., Geng, Z., & Li, H. (2021). Deep relative geologic time: A deep learning method for simultaneously interpreting 3-d seismic hori -
+zons and faults. Journal of Geophysical Research: Solid Earth , 126(9), e2021JB021882. https://doi.org/10.1029/2021JB021882
+Bommasani, R., Hudson, D. A., Adeli, E., Altman, R., Arora, S., von Arx, S., et al. (2021). On the opportunities and risks of foundation models. 
+https://doi.org/10.48550/arXiv.2108.07258
+Cai, A., Qiu, H., & Niu, F. (2022). Semi-supervised surface wave tomography with Wasserstein cycle-consistent GAN: Method and appli -
+cation to southern California plate boundary region. Journal of Geophysical Research: Solid Earth , 127(3), e2021JB023598. https://doi.
+org/10.1029/2021JB023598
+Chen, Y., Saad, O. M., Savvaidis, A., Chen, Y., & Fomel, S. (2022). 3D microseismic monitoring using machine learning. Journal of Geophysical 
+Research: Solid Earth , 127(3), e2021JB023842. https://doi.org/10.1029/2021JB023842
+Chen, Y., & Saygin, E. (2021). Seismic inversion by hybrid machine learning. Journal of Geophysical Research: Solid Earth , 126(9), 
+e2020JB021589. https://doi.org/10.1029/2020JB021589
+Cianetti, S., Bruni, R., Gaviano, S., Keir, D., Piccinini, D., Saccorotti, G., & Giunchi, C. (2021). Comparison of deep learning techniques for the 
+investigation of a seismic sequence: An application to the 2019, Mw 4.5 Mugello (Italy) earthquake. Journal of Geophysical Research: Solid 
+Earth , 126(12), e2021JB023405. https://doi.org/10.1029/2021jb023405
+Dramsch, J. S. (2020). Chapter one—70 years of machine learning in geoscience in review. In B. Moseley & L. Krischer (Eds.), Machine learning 
+in geosciences  (Vol. 61, pp. 1–55). Elsevier. https://doi.org/10.1016/bs.agph.2020.08.002
+Feng, T., Mohanna, S., & Meng, L. (2022). Edgephase: A deep learning model for multi-station seismic phase picking. Geochemistry, Geophys-
+ics, Geosystems , 23(11), e2022GC010453. https://doi.org/10.1029/2022gc010453
+Fieseler, C., Mitchell, C., Pyrak-Nolte, L., & Kutz, J. (2022). Characterization of acoustic emissions from analogue rocks using sparse regres -
+sion-DMDC. Journal of Geophysical Research: Solid Earth , 127(7), e2022JB024144. https://doi.org/10.1029/2022jb024144
+Gan, H., Pan, X., Tang, K., Hu, N., & Zhang, W. (2022). EWR-net: Earthquake waveform regularization network for irregular station data 
+based on deep generative model and RESNet. Journal of Geophysical Research: Solid Earth , 127(10), e2022JB024122. https://doi.org/ 
+10.1029/2022jb024122
+Granat, R., Donnellan, A., Heflin, M., Lyzenga, G., Glasscoe, M., Parker, J., et al. (2021). Clustering analysis methods for GNSS observa -
+tions: A data-driven approach to identifying California’s major faults. Earth and Space Science , 8(11), e2021EA001680. https://doi.org/ 
+10.1029/2021ea001680
+Graw, J. H., Wood, W. T., & Phrampus, B. J. (2021). Predicting global marine sediment density using the random forest regressor machine learn -
+ing algorithm. Journal of Geophysical Research: Solid Earth , 126(1), e2020JB020135. https://doi.org/10.1029/2020JB020135
+Hu, X., Burgmann, R., Xu, X., Fielding, E., & Liu, Z. (2021). Machine-learning characterization of tectonic, hydrological and anthropogenic 
+sources of active ground deformation in California. Journal of Geophysical Research: Solid Earth , 126(11), e2021JB022373. https://doi.
+org/10.1029/2021JB022373
+Huang, R., Liu, S., Qi, R., & Zhang, Y. (2021). Deep learning 3D sparse inversion of gravity data. Journal of Geophysical Research: Solid Earth , 
+126(11), e2021JB022476. https://doi.org/10.1029/2021JB022476
+Huang, X., & Alkhalifah, T. (2021). Pinnup: Robust neural network wavefield solutions using frequency upscaling and neuron splitting. Journal 
+of Geophysical Research: Solid Earth , 127(6), e2021JB023703. https://doi.org/10.1029/2021jb023703
+Jasperson, H., Bolton, D. C., Johnson, P., Guyer, R., Marone, C., & de Hoop, M. V. (2021). Attention network forecasts time-to-failure in labo -
+ratory shear experiments. Journal of Geophysical Research: Solid Earth , 126(11), e2021JB022195. https://doi.org/10.1029/2021JB022195
+Jenkins, W. F., II., Gerstoft, P., Bianco, M. J., & Bromirski, P. D. (2021). Unsupervised deep clustering of seismic data: Monitoring the Ross Ice 
+Shelf, Antarctica. Journal of Geophysical Research: Solid Earth , 126(9), e2021JB021716. https://doi.org/10.1029/2021JB021716Acknowledgments
+We are grateful to the editors and editorial 
+staff of American Geophysics Union, 
+who carried out a significant amount 
+of editorial tasks. We also thank all the 
+reviewers and authors who provided 
+their best expertise and work to build this 
+collection.
+ 21699356, 2023, 1, Downloaded from https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022JB026310 by Zhejiang University, Wiley Online Library on [30/07/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+Journal of Geophysical Research: Solid Earth
+LI ET AL.10.1029/2022JB026310
+6 of 7Jorgenson, C., Higgins, O., Petrelli, M., Bégué, F., & Caricchi, L. (2022). A machine learning-based approach to clinopyroxene thermobarometry: 
+Model optimization and distribution for use in Earth sciences. Journal of Geophysical Research: Solid Earth , 127(4), e2021JB022904. https://
+doi.org/10.1029/2021jb022904
+Kaur, H., Fomel, S., & Pham, N. (2021). A fast algorithm for elastic wave-mode separation using deep learning with generative adversarial 
+networks (GANS). Journal of Geophysical Research: Solid Earth , 126(9), e2020JB021123. https://doi.org/10.1029/2020JB021123
+Kolmogorov, A. N. (1939). Sur l’interpolation et extrapolation des suites stationnaires. Comptes Rendus de l'Académie des Sciences , 208(2043).
+Krige, D. G. (1951). A statistical approach to some basic mine valuation problems on the Witwatersrand. Journal of the South African Institute 
+of Mining and Metallurgy , 52(6), 119–139.
+Lapins, S., Goitom, B., Kendall, J.-M., Werner, M. J., Cashman, K. V., & Hammond, J. O. S. (2021). A little data goes a long way: Automating 
+seismic phase arrival picking at nabro volcano with transfer learning. Journal of Geophysical Research: Solid Earth , 126(7), e2021JB021910. 
+https://doi.org/10.1029/2021JB021910
+Leong, Z. X., & Zhu, T. (2021). Direct velocity inversion of ground penetrating radar data using GPRNet. Journal of Geophysical Research: Solid 
+Earth , 126(6), e2020JB021047. https://doi.org/10.1029/2020JB021047
+Li, B., & Li, Y. E. (2021). Neural network-based CO2 interpretation from 4D sleipner seismic images. Journal of Geophysical Research: Solid 
+Earth , 126(12), e2021JB022524. https://doi.org/10.1029/2021jb022524
+Li, X., & Zhang, C. (2022). Machine learning thermobarometry for biotite-bearing magmas. Journal of Geophysical Research: Solid Earth , 
+127(9), e2022JB024137. https://doi.org/10.1029/2022jb024137
+Lin, J.-T., Melgar, D., Thomas, A., & Searcy, J. (2021). Early warning for great earthquakes from characterization of crustal deformation patterns 
+with deep learning. Journal of Geophysical Research: Solid Earth , 126(10), e2021JB022703. https://doi.org/10.1029/2021jb022703
+Lin, X., Cicchella, D., Hong, J., & Meng, G. (2022). A test of the hypothesis that syn-collisional felsic magmatism contributes to continental 
+crustal growth via deep learning modeling and principal component analysis of big geochemical datasets. Journal of Geophysical Research: 
+Solid Earth , 127(2), e2021JB023002. https://doi.org/10.1029/2021JB023002
+Linville, L. M. (2022). Event-based training in label-limited regimes. Journal of Geophysical Research: Solid Earth , 127(1), e2021JB022820. 
+https://doi.org/10.1029/2021jb022820
+Lopez-Alvis, J., Nguyen, F., Looms, M. C., & Hermans, T. (2022). Geophysical inversion using a variational autoencoder to model an assembled 
+spatial prior uncertainty. Journal of Geophysical Research: Solid Earth , 127(3), e2021JB022581. https://doi.org/10.1029/2021JB022581
+Lösing, M., & Ebbing, J. (2021). Predicting geothermal heat flow in Antarctica with a machine learning approach. Journal of Geophysical 
+Research: Solid Earth , 126(6), e2020JB021499. https://doi.org/10.1029/2020JB021499
+Majstorovic, J., Giffard-Roisin, S., & Poli, P. (2021). Designing convolutional neural network pipeline for near-fault earthquake catalog extension 
+using single-station waveforms. Journal of Geophysical Research: Solid Earth , 126(7), e2020JB021566. https://doi.org/10.1029/2020JB021566
+Manley, G. F., Mather, T. A., Pyle, D. M., Clifton, D. A., Rodgers, M., Thompson, G., & Roman, D. C. (2021). Machine learning approaches to 
+identifying changes in eruptive state using multi-parameter datasets from the 2006 eruption of Augustine volcano, Alaska. Journal of Geophys -
+ical Research: Solid Earth , 126(12), e2021JB022323. https://doi.org/10.1029/2021jb022323
+Mattéo, L., Manighetti, I., Tarabalka, Y., Gaucel, J.-M., van den Ende, M., Mercier, A., et al. (2021). Automatic fault mapping in remote opti -
+cal images and topographic data with deep learning. Journal of Geophysical Research: Solid Earth , 126(4), e2020JB021269. https://doi.
+org/10.1029/2020JB021269
+Mosher, S. G., & Audet, P. (2020). Automatic detection and location of seismic events from time-delay projection mapping and neural network 
+classification. Journal of Geophysical Research: Solid Earth , 125(10), e2020JB019426. https://doi.org/10.1029/2020jb019426
+Münchmeyer, J., Woollam, J., Rietbrock, A., Tilmann, F., Lange, D., Bornstein, T., et al. (2022). Which picker fits my data? A quantitative 
+evaluation of deep learning based seismic pickers. Journal of Geophysical Research: Solid Earth , 127(1), e2021JB023499. https://doi.org/ 
+10.1029/2021jb023499
+Nolte, D. D., & Pyrak-Nolte, L. J. (2022). Monitoring fracture saturation with internal seismic sources and twin neural networks. Journal of 
+Geophysical Research: Solid Earth , 127(2), e2021JB023005. https://doi.org/10.1029/2021JB023005
+Nurindrawati, F., & Sun, J. (2020). Predicting magnetization directions using convolutional neural networks. Journal of Geophysical Research: 
+Solid Earth , 125(10), e2020JB019675. https://doi.org/10.1029/2020JB019675
+Qin, B., Huang, F., Huang, S., Python, A., Chen, Y., & ZhangZhou, J. (2022). Machine learning investigation of clinopyroxene compositions to 
+evaluate and predict mantle metasomatism worldwide. Journal of Geophysical Research: Solid Earth , 127(5), e2021JB023614. https://doi.
+org/10.1029/2021jb023614
+Rasht-Behesht, M., Huber, C., Shukla, K., & Karniadakis, G. E. (2022). Physics-informed neural networks (PINNS) for wave propagation and full 
+waveform inversions. Journal of Geophysical Research: Solid Earth , 127(5), e2021JB023120. https://doi.org/10.1029/2021jb023120
+Saad, O. M., Chen, Y., Savvaidis, A., Fomel, S., & Chen, Y. (2022). Real-time earthquake detection and magnitude estimation using vision trans -
+former. Journal of Geophysical Research: Solid Earth , 127(5), e2021JB023657. https://doi.org/10.1029/2021jb023657
+Saad, O. M., Huang, G., Chen, Y., Savvaidis, A., Fomel, S., Pham, N., & Chen, Y. (2021). Scalodeep: A highly generalized deep learning frame -
+work for real-time earthquake detection. Journal of Geophysical Research: Solid Earth , 126(4), e2020JB021473. https://doi.org/10.1029/ 
+2020JB021473
+Saha, R., Upadhyay, D., & Mishra, B. (2021). Discriminating tectonic setting of igneous rocks using biotite major element chemistry-A machine 
+learning approach. Geochemistry, Geophysics, Geosystems , 22(11), e2021GC010053. https://doi.org/10.1029/2021gc010053
+Shao, Q., Hou, G., Li, W., Han, G., Liang, K., & Bai, Y. (2021). Ocean reanalysis data-driven deep learning forecast for sea surface multivariate 
+in the South China Sea. Earth and Space Science , 8(7), e2020EA001558. https://doi.org/10.1029/2020ea001558
+Shreedharan, S., Bolton, D. C., Rivière, J., & Marone, C. (2021). Machine learning predicts the timing and shear stress evolution of lab earth -
+quakes using active seismic monitoring of fault zone processes. Journal of Geophysical Research: Solid Earth , 126(7), e2020JB021588. 
+https://doi.org/10.1029/2020JB021588
+Song, W., Feng, X., Wu, G., Zhang, G., Liu, Y., & Chen, X. (2021). Convolutional neural network, res-unet++, -based dispersion curve picking 
+from noise cross-correlations. Journal of Geophysical Research: Solid Earth , 126(11), e2021JB022027. https://doi.org/10.1029/2021jb022027
+Song, W., Feng, X., Zhang, G., Gao, L., Yan, B., & Chen, X. (2022). Domain adaptation in automatic picking of phase velocity dispersions based 
+on deep learning. Journal of Geophysical Research: Solid Earth , 127(6), e2021JB023389. https://doi.org/10.1029/2021jb023389
+Song, Z., Zhang, Z., Zhang, G., Huang, J., & Wu, M. (2022). Identifying the types of loading mode for rock fracture via convolutional neural 
+networks. Journal of Geophysical Research: Solid Earth , 127(2), e2021JB022532. https://doi.org/10.1029/2021JB022532
+Steinberg, A., Vasyura-Bathke, H., Gaebler, P., Ohrnberger, M., & Ceranna, L. (2021). Estimation of seismic moment tensors using variational 
+inference machine learning. Journal of Geophysical Research: Solid Earth , 126(10), e2021JB022685. https://doi.org/10.1029/2021JB022685
+Steinmann, R., Seydoux, L., Beaucé, E., & Campillo, M. (2022). Hierarchical exploration of continuous seismograms with unsupervised learning. 
+Journal of Geophysical Research: Solid Earth , 127(1), e2021JB022455. https://doi.org/10.1029/2021jb022455
+ 21699356, 2023, 1, Downloaded from https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022JB026310 by Zhejiang University, Wiley Online Library on [30/07/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+Journal of Geophysical Research: Solid Earth
+LI ET AL.10.1029/2022JB026310
+7 of 7Sun, J., Wauthier, C., Stephens, K., Gervais, M., Cervone, G., La Femina, P., & Higgins, M. (2020). Automatic detection of volcanic surface defor -
+mation using deep learning. Journal of Geophysical Research: Solid Earth , 125(9), e2020JB019840. https://doi.org/10.1029/2020JB019840
+Talsma, C. J., Bennett, K. E., & Vesselinov, V. V. (2022). Characterizing drought behavior in the Colorado River basin using unsupervised 
+machine learning. Earth and Space Science , 9(5), e2021EA002086. https://doi.org/10.1029/2021ea002086
+Thomson, A. R., Kohn, S. C., Prabhu, A., & Walter, M. J. (2021). Evaluating the formation pressure of diamond-hosted majoritic garnets: A 
+machine learning majorite barometer. Journal of Geophysical Research: Solid Earth , 126(3). https://doi.org/10.1029/2020JB020604
+Vega-Ramírez, L. A., Spelz, R. M., Negrete-Aranda, R., Neumann, F., Caress, D. W., Clague, D. A., et al. (2021). A new method for fault-  
+scarp detection using linear discriminant analysis in high-resolution bathymetry data from the alarcón rise and pescadero basin. Tectonics , 
+40(12), e2021TC006925. https://doi.org/10.1029/2021TC006925
+Wang, F., Song, X., & Li, J. (2022). Deep learning-based h- κ method (HKNET) for estimating crustal thickness and vp/vs ratio from receiver 
+functions. Journal of Geophysical Research: Solid Earth , 127(6), e2022JB023944. https://doi.org/10.1029/2022jb023944
+Wang, T., Trugman, D., & Lin, Y. (2021). Seismogen: Seismic waveform synthesis using gan with application to seismic data augmentation. 
+Journal of Geophysical Research: Solid Earth , 126(4), e2020JB020077. https://doi.org/10.1029/2020jb020077
+Wang, Y., Qiu, K.-F., Müller, A., Hou, Z.-L., Zhu, Z.-H., & Yu, H.-C. (2021). Machine learning prediction of quartz forming-environments. 
+Journal of Geophysical Research: Solid Earth , 126(8), e2021JB021925. https://doi.org/10.1029/2021JB021925
+Wu, X., Yan, S., Qi, J., & Zeng, H. (2020). Deep learning for characterizing paleokarst collapse features in 3-D seismic images. Journal of 
+Geophysical Research: Solid Earth , 125(9), e2020JB019685. https://doi.org/10.1029/2020JB019685
+Wu, Y., McMechan, G. A., & Wang, Y. (2022). Adaptive feedback convolutional-neural-network-based high-resolution reflection-waveform 
+inversion. Journal of Geophysical Research: Solid Earth , 127(6), e2022JB024138. https://doi.org/10.1029/2022jb024138
+Xiao, H., Zhang, F., Shen, Z., Wu, K., & Zhang, J. (2021). Classification of weather phenomenon from images by using deep convolutional neural 
+network. Earth and Space Science , 8(5), e2020EA001604. https://doi.org/10.1029/2020ea001604
+Xiao, Z., Wang, J., Liu, C., Li, J., Zhao, L., & Yao, Z. (2021). Siamese earthquake transformer: A pair-input deep-learning model for earth -
+quake detection and phase picking on a seismic array. Journal of Geophysical Research: Solid Earth , 126(5), e2020JB021444. https://doi.
+org/10.1029/2020JB021444
+Xiong, F., Ba, J., Gei, D., & Carcione, J. M. (2021). Data-driven design of wave-propagation models for shale-oil reservoirs based on machine 
+learning. Journal of Geophysical Research: Solid Earth , 126(12), e2021JB022665. https://doi.org/10.1029/2021JB022665
+Yano, K., & Kano, M. (2022). l1 trend filtering-based detection of Short-Term Slow Slip events: Application to a GNSS array in Southwest Japan. 
+Journal of Geophysical Research: Solid Earth , 127(5), e2021JB023258. https://doi.org/10.1029/2021jb023258
+You, N., Li, Y. E., & Cheng, A. (2021). 3d carbonate digital rock reconstruction using progressive growing gan. Journal of Geophysical Research: 
+Solid Earth , 126(5), e2021JB021687. https://doi.org/10.1029/2021JB021687
+Zhang, Q., Zhang, W., Wu, X., Zhang, J., Kuang, W., & Si, X. (2022). Deep learning for efficient microseismic location using source migra -
+tion-based imaging. Journal of Geophysical Research: Solid Earth , 127(3), e2021JB022649. https://doi.org/10.1029/2021jb022649
+Zhang, X., & Curtis, A. (2021). Bayesian geophysical inversion using invertible neural networks. Journal of Geophysical Research: Solid Earth , 
+126(7), e2021JB022320. https://doi.org/10.1029/2021JB022320
+Zhou, S., Tordesillas, A., Intrieri, E., Di Traglia, F., Qian, G., & Catani, F. (2022). Pinpointing early signs of impending slope failures from space. 
+Journal of Geophysical Research: Solid Earth , 127(2), e2021JB022957. https://doi.org/10.1029/2021jb022957
+Zhu, W., McBrearty, I. W., Mousavi, S. M., Ellsworth, W. L., & Beroza, G. C. (2022). Earthquake phase association using a Bayesian Gaussian 
+mixture model. Journal of Geophysical Research: Solid Earth , 127(5), e2021JB023249. https://doi.org/10.1029/2021JB023249
+Zhu, W., Tai, K. S., Mousavi, S. M., Bailis, P., & Beroza, G. C. (2022). An end-to-end earthquake detection method for joint phase picking and 
+association using deep learning. Journal of Geophysical Research: Solid Earth , 127(3), e2021JB023283. https://doi.org/10.1029/2021jb023283
+Zou, C., Zhao, L., Xu, M., Chen, Y., & Geng, J. (2021). Porosity prediction with uncertainty quantification from multiple seismic attributes using 
+random forest. Journal of Geophysical Research: Solid Earth , 126(7), e2021JB021826. https://doi.org/10.1029/2021JB021826
+Zou, S., Chen, X., Brzozowski, M. J., Leng, C.-B., & Xu, D. (2022). Application of machine learning to characterizing magma fertility in 
+porphyry cu deposits. Journal of Geophysical Research: Solid Earth , 127(8), e2022JB024584. https://doi.org/10.1029/2022jb024584
+ 21699356, 2023, 1, Downloaded from https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022JB026310 by Zhejiang University, Wiley Online Library on [30/07/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
