@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
-from 数据处理.treat_data_ui import DataProcessorGUI
-from Image_pro.fig import MeasurementTool as M
-from paser.p_paser import PDFViewer
+from data_processing.treat_data_ui import DataProcessorGUI
+from picture_distance_measurement.Dinosaur_Measurement_1 import MeasurementTool as M
+from paser.image_text_separation import PDFViewer
 
 def data_processing_window():
     # 创建数据处理窗口

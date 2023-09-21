@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
-from 数据处理.treat_data_ui import DataProcessorGUI
-from Image_pro.fig import MeasurementTool as M
-# from paser.p_paser import PDFViewer
+from data_processing.treat_data_ui import DataProcessorGUI
+from picture_distance_measurement.Dinosaur_Measurement_1 import MeasurementTool as M
+# from image_text.image_text_separation import PDFViewer
 from tkinter import filedialog
 import threading
 import fitz
@@ -12,8 +12,6 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import io
 import os
-
-
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
@@ -21,8 +19,6 @@ import fitz
 import io
 import os
 import threading
-
-
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
@@ -192,7 +188,7 @@ class PDFViewer:
 class Application(PDFViewer):
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("恐龙数据库处理工具")
+        self.root.title("论文数据处理工具")
         self.create_menu_buttons()
 
     def create_menu_buttons(self):
